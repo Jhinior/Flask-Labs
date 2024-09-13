@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}View Books - Book Management{% endblock %}
+{% block content %}
+<div class="card p-4">
+  <h1 class="text-center mb-4" style="color: #343a40;">Book Collection</h1>
+
+  <h2 class="mb-4" style="color: #6c757d;">All Books</h2>
+  
+  {% if books %}
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Owner</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in books %}
+      <tr>
+        <td>
+          {% if book.image %}
+          <img
+            src="data:image/jpeg;base64,{{ book.image | b64encode }}"
+            alt="Book Image"
+            class="img-fluid"
+            style="max-width: 100px; height: auto;"
+          />
+          {% else %}
+          No Image
+          {% endif %}
+        </td>
+        <td>{{ book.title }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.owner.username }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="text-center">No books have been added yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

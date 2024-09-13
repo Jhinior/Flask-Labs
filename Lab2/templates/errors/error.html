@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1 style="color: #dc3545;">404 - Page Not Found</h1>
+        <img src="{{ url_for('static', filename='errors/error.png') }}" alt="Error Image">
+        <p style="margin-top: 20px; color: #6c757d;">The page you are looking for does not exist.</p>
+    </div>
+</body>
+</html>

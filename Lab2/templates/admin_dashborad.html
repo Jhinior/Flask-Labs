@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard - Book Management{% endblock %}
+{% block content %}
+<div class="card p-4">
+  <h1>Admin Dashboard</h1>
+
+  <h2>Add Book</h2>
+  <form action="{{ url_for('add_book') }}" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control" id="title" name="title" required />
+    </div>
+    <div class="mb-3">
+      <label for="author" class="form-label">Author</label>
+      <input type="text" class="form-control" id="author" name="author" />
+    </div>
+    <div class="mb-3">
+      <label for="image" class="form-label">Image</label>
+      <input type="file" class="form-control" id="image" name="cover_image" />
+    </div>
+    <button type="submit" class="btn btn-primary">Add Book</button>
+  </form>
+
+  <h2 class="mt-4">Users</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Admin Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.username }}</td>
+        <td>{{ 'Yes' if user.admin_status else 'No' }}</td>
+        <td>
+          <a href="{{ url_for('admin_edit_user', user_id=user.user_id) }}" class="btn btn-primary btn-sm">Edit</a>
+          <a href="{{ url_for('admin_delete_user', user_id=user.user_id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h2 class="mt-4">Books</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Owner</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in books %}
+      <tr>
+        <td>{{ book.title }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.user.username }}</td>
+        <td>
+          <a href="{{ url_for('admin_edit_book', book_id=book.book_id) }}" class="btn btn-primary btn-sm">Edit</a>
+          <a href="{{ url_for('admin_delete_book', book_id=book.book_id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this book?')">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
